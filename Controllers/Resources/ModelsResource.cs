@@ -1,6 +1,6 @@
 namespace meli.Controllers.Resources
 {
-    public class ModelsResource
+    public class ModelResource
     {
         public int Id { get; set; }
 

@@ -8,8 +8,8 @@ namespace meli.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Maker, MakersResource>();
-            CreateMap<Model, ModelsResource>();
+            CreateMap<Maker, MakerResource>();
+            CreateMap<Model, ModelResource>();
             
         }
     }

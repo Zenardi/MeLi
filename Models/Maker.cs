@@ -11,11 +11,11 @@ namespace meli.Models
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
-        public ICollection<ModelsResource> Models { get; set; }
+        public ICollection<Model> Models { get; set; }
 
         public Maker()
         {
-            Models = new Collection<ModelsResource>();
+            Models = new Collection<Model>();
         }
     }
 }
