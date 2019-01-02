@@ -10,7 +10,7 @@ namespace meli.Persistence
             
         }
 
-
+        public DbSet<Feature> Features { get; set; }
         public DbSet<Maker> Makers { get; set; }
     }
 }
