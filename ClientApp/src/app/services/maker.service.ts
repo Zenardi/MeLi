@@ -10,8 +10,6 @@ export class MakerService {
   constructor(private http: HttpClient) { }
 
   getMakers() {
-    // return this.http.get('/api/makers').map(res => res.json());
-    // return this.http.get('/api/makers');
     return this.http.get('/api/makers');
   }
 }
