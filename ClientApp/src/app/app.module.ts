@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 
-import { MakerService } from './services/maker.service';
+import { VehicleService } from './services/vehicle.service';
 import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -35,7 +35,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
     ])
   ],
   providers: [
-    MakerService
+    VehicleService
   ],
   bootstrap: [AppComponent]
 })
