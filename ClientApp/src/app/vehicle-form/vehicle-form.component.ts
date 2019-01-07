@@ -7,12 +7,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vehicle-form.component.css']
 })
 export class VehicleFormComponent implements OnInit {
-  public get MakerService(): VehicleService {
-    return this.vehicleService;
-  }
-  public set MakerService(value: VehicleService) {
-    this.vehicleService = value;
-  }
   makers;
   models: any[];
   vehicle: any = {};
@@ -21,8 +15,8 @@ export class VehicleFormComponent implements OnInit {
   constructor(private vehicleService: VehicleService) { }
 
   ngOnInit() {
-    this.MakerService.getMakers().subscribe(makers => this.makers = makers);
-    this.vehicle.getFeatures().subscribe(features => this.features = features);
+    this.vehicleService.getMakers().subscribe(makers => this.makers = makers);
+    this.vehicleService.getFeatures().subscribe((features: any) => this.features = features);
   }
 
   onMakerChange(id) {
