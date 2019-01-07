@@ -16,14 +16,14 @@ namespace meli.Migrations
             migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker1-ModelC', (SELECT ID FROM Makers WHERE Name='Maker1'))");
 
 
-            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker1-ModelA', (SELECT ID FROM Makers WHERE Name='Maker2'))");
-            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker1-ModelB', (SELECT ID FROM Makers WHERE Name='Maker2'))");
-            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker1-ModelC', (SELECT ID FROM Makers WHERE Name='Maker2'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker2-ModelA', (SELECT ID FROM Makers WHERE Name='Maker2'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker2-ModelB', (SELECT ID FROM Makers WHERE Name='Maker2'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker2-ModelC', (SELECT ID FROM Makers WHERE Name='Maker2'))");
 
 
-            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker1-ModelA', (SELECT ID FROM Makers WHERE Name='Maker3'))");
-            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker1-ModelB', (SELECT ID FROM Makers WHERE Name='Maker3'))");
-            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker1-ModelC', (SELECT ID FROM Makers WHERE Name='Maker3'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker3-ModelA', (SELECT ID FROM Makers WHERE Name='Maker3'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker3-ModelB', (SELECT ID FROM Makers WHERE Name='Maker3'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name, MakerId) VALUES ('Maker3-ModelC', (SELECT ID FROM Makers WHERE Name='Maker3'))");
 
         }
 

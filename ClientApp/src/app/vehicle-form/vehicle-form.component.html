@@ -2,7 +2,7 @@
 <form>
 <div class="form-group">
   <label for="maker">Maker</label>
-  <select class="form-control"  id="maker" (change)="onMakerChange()" [(ngModel)]="vehicle.maker" name="maker">
+  <select class="form-control"  id="slc_maker" (change)="onMakerChange($event.target.value)"[(ngModel)]="vehicle.maker" name="maker">
   <option></option>
   <option *ngFor="let c of makers" value={{c.id}}>{{c.name}}</option>
   </select>

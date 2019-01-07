@@ -13,7 +13,7 @@ export class VehicleFormComponent implements OnInit {
   public set MakerService(value: MakerService) {
     this._MakerService = value;
   }
-  makers: any;
+  makers;
   models: any[];
 
   vehicle: any = {};
@@ -24,10 +24,23 @@ export class VehicleFormComponent implements OnInit {
     this.MakerService.getMakers().subscribe(makers => this.makers = makers);
   }
 
-  onMakerChange() {
-    this.models = this.makers.find(con => {
-      return con.id === this.vehicle.maker;
-    }).models;
+  onMakerChange(id) {
+    // this.models = this.makers.find(con => {
+    //   return con.id === this.vehicle.maker;
+    // }).models;
+    // tslint:disable-next-line:triple-equals
+    console.log(this.vehicle.maker);
+    console.log(this.models = this.makers.filter(con => {
+         // tslint:disable-next-line:triple-equals
+         return con.id == this.vehicle.maker;
+        }));
+
+        this.models = (this.models = this.makers.filter(con => {
+    // tslint:disable-next-line:triple-equals
+    return con.id == this.vehicle.maker;
+    })[0].models);
+    // tslint:disable-next-line:triple-equals
+    // this.models = this.makers.filter((item) => item.id == id).models;
 
   }
 
