@@ -5,11 +5,15 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class MakerService {
+export class VehicleService {
 
   constructor(private http: HttpClient) { }
 
   getMakers() {
     return this.http.get('/api/makers');
+  }
+
+  getFeatures() {
+    return this.http.get('/api/features');
   }
 }
