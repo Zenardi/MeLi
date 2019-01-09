@@ -13,38 +13,35 @@ namespace meli.Controllers
     public class VehiclesController : Controller
     {
         private readonly IMapper mapper;
-        private readonly MeliDbContext context;
+        private readonly IVehicleRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public VehiclesController(IMapper mapper, MeliDbContext context)
+        public VehiclesController(IMapper mapper, IVehicleRepository repository, IUnitOfWork unitOfWork)
         {
-            this.context = context;
+            this.unitOfWork = unitOfWork;
+            this.repository = repository;
             this.mapper = mapper;
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
-        if (!ModelState.IsValid)
-          return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        var vehicle = await context.Vehicles
-          .Include(v => v.Features)
-            .ThenInclude(vf => vf.Feature)
-          .Include(v => v.Model)
-            .ThenInclude(m => m.Maker)
-          .SingleOrDefaultAsync(v => v.Id == id);
+            var vehicle = await repository.GetVehicle(id);
 
-        if (vehicle == null)
-          return NotFound();
+            if (vehicle == null)
+                return NotFound();
 
-        mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
-        vehicle.LastUpdate = DateTime.Now;
+            mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
+            vehicle.LastUpdate = DateTime.Now;
 
-        await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
-        var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
+            var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
-        return Ok(result);
+            return Ok(result);
         }
 
 
@@ -57,15 +54,10 @@ namespace meli.Controllers
             var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
             vehicle.LastUpdate = DateTime.Now;
 
-            context.Vehicles.Add(vehicle);
-            await context.SaveChangesAsync();
+            repository.Add(vehicle);
+            await unitOfWork.CompleteAsync();
 
-            vehicle = await context.Vehicles
-                .Include(vf=>vf.Features)
-                    .ThenInclude(vf => vf.Feature)
-                .Include(vf => vf.Model)
-                    .ThenInclude(m=>m.Maker)
-                .SingleOrDefaultAsync(v1=>v1.Id==vehicle.Id);
+            vehicle = await repository.GetVehicle(vehicle.Id);
 
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
@@ -75,13 +67,13 @@ namespace meli.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
         {
-            var v = await context.Vehicles.FindAsync(id);
-            if(v == null)
+            var v = await repository.GetVehicle(id, includeRelated: false);
+            if (v == null)
                 return NotFound();
 
 
-            context.Remove(v);
-            await context.SaveChangesAsync();
+            repository.Remove(v);
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
@@ -89,19 +81,14 @@ namespace meli.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicle(int id)
         {
-        var vehicle = await context.Vehicles
-          .Include(v => v.Features)
-            .ThenInclude(vf => vf.Feature)
-          .Include(v => v.Model)
-            .ThenInclude(m => m.Maker)
-          .SingleOrDefaultAsync(v => v.Id == id);
+            var vehicle = await repository.GetVehicle(id);
 
-        if (vehicle == null)
-          return NotFound();
+            if (vehicle == null)
+                return NotFound();
 
-        var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
+            var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
-        return Ok(vehicleResource);
+            return Ok(vehicleResource);
         }
     }
 }
