@@ -22,30 +22,50 @@ namespace meli.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleResource vehicleResource)
+        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        if (!ModelState.IsValid)
+          return BadRequest(ModelState);
 
-            var vehicle = await context.Vehicles.Include(v=>v.Features).SingleOrDefaultAsync(v => v.Id == id);
-            mapper.Map<VehicleResource, Vehicle>(vehicleResource, vehicle);
-            vehicle.LastUpdate = DateTime.Now;
-            var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
-            return Ok(result);
+        var vehicle = await context.Vehicles
+          .Include(v => v.Features)
+            .ThenInclude(vf => vf.Feature)
+          .Include(v => v.Model)
+            .ThenInclude(m => m.Maker)
+          .SingleOrDefaultAsync(v => v.Id == id);
+
+        if (vehicle == null)
+          return NotFound();
+
+        mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
+        vehicle.LastUpdate = DateTime.Now;
+
+        await context.SaveChangesAsync();
+
+        var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
+
+        return Ok(result);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateVehicle([FromBody] VehicleResource vehicleResource)
+        public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleResource vehicleResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var vehicle = mapper.Map<VehicleResource, Vehicle>(vehicleResource);
+            var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
             vehicle.LastUpdate = DateTime.Now;
 
             context.Vehicles.Add(vehicle);
             await context.SaveChangesAsync();
+
+            vehicle = await context.Vehicles
+                .Include(vf=>vf.Features)
+                    .ThenInclude(vf => vf.Feature)
+                .Include(vf => vf.Model)
+                    .ThenInclude(m=>m.Maker)
+                .SingleOrDefaultAsync(v1=>v1.Id==vehicle.Id);
 
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
@@ -69,13 +89,19 @@ namespace meli.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicle(int id)
         {
-            var v = await context.Vehicles.Include(vf=>vf.Features).SingleOrDefaultAsync(v1=>v1.Id==id);
-            if(v == null)
-                return NotFound();
+        var vehicle = await context.Vehicles
+          .Include(v => v.Features)
+            .ThenInclude(vf => vf.Feature)
+          .Include(v => v.Model)
+            .ThenInclude(m => m.Maker)
+          .SingleOrDefaultAsync(v => v.Id == id);
 
-            var vr = mapper.Map<Vehicle, VehicleResource>(v);
+        if (vehicle == null)
+          return NotFound();
 
-            return Ok(vr);
+        var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
+
+        return Ok(vehicleResource);
         }
     }
 }

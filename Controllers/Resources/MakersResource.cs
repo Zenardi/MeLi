@@ -5,16 +5,13 @@ using meli.Models;
 
 namespace meli.Controllers.Resources
 {
-    public class MakerResource
+    public class MakerResource : KeyValuePairResource
     {
-        public int Id { get; set; }
-        
-        public string Name { get; set; }
-        public ICollection<ModelResource> Models { get; set; }
+        public ICollection<KeyValuePairResource> Models { get; set; }
 
         public MakerResource()
         {
-            Models = new Collection<ModelResource>();
+            Models = new Collection<KeyValuePairResource>();
         }
     }
 }
