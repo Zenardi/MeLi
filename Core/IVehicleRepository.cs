@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using meli.Models;
+using meli.Core.Models;
 
-namespace meli.Persistence
+namespace meli.Core
 {
     public interface IVehicleRepository
     {

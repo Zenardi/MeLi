@@ -1,3 +1,4 @@
+using meli.Core;
 using meli.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

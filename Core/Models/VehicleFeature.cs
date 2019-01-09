@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace meli.Models
+namespace meli.Core.Models
 {
     [Table("VehicleFeatures")]
     public class VehicleFeature

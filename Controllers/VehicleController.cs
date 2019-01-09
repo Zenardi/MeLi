@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using meli.Controllers.Resources;
-using meli.Models;
-using meli.Persistence;
+using meli.Core.Models;
+using meli.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace meli.Controllers

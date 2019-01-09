@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace meli.Models
+namespace meli.Core.Models
 {
     public class Vehicle
     {

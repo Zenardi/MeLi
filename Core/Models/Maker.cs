@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using meli.Controllers.Resources;
 
-namespace meli.Models
+namespace meli.Core.Models
 {
     public class Maker
     {

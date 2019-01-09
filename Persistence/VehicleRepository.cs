@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
-using meli.Models;
+using meli.Core;
+using meli.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace meli.Persistence

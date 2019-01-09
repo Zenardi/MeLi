@@ -1,4 +1,4 @@
-using meli.Models;
+using meli.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace meli.Persistence

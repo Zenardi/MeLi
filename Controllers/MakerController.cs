@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using meli.Models;
+using meli.Core.Models;
 using meli.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;

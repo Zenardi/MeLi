@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace meli.Models
+namespace meli.Core.Models
 {
     public class Feature
     {

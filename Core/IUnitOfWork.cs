@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace meli.Persistence
+namespace meli.Core
 {
 
     public interface IUnitOfWork

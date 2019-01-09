@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using meli.Core;
 
 namespace meli.Persistence
 {

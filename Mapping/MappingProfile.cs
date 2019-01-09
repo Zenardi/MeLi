@@ -1,6 +1,6 @@
 using AutoMapper;
 using meli.Controllers.Resources;
-using meli.Models;
+using meli.Core.Models;
 using System.Collections.Generic;
 using System.Linq;
 
